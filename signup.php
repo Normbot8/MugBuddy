@@ -12,6 +12,16 @@
 </head>
 
 <?php
+    // define variables and set to empty values
+    $firstName = $lastName = $userName = $password = "";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = test_input($_POST["firstName"]);
+        $email = test_input($_POST["lastName"]);
+        $website = test_input($_POST["userName"]);
+        $comment = test_input($_POST["password"]);
+    }
+
     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -23,7 +33,7 @@
 <body>
     <h1>Sign Up Today!</h1>
 
-    <form>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         First Name:
         <br>
         <input type="text" name="firstName"></input>
