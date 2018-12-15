@@ -7,7 +7,7 @@
     $email = $_SESSION["email"];
 
 
-    $mysql = new mysqli("localhost", "root", "noU", "mugBuddy");
+    $mysql = new mysqli("localhost", "root", "", "mugBuddy");
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -23,16 +23,17 @@
     if ($mysql->query($query))
     {
         $checkForDuplicate = $mysql->prepare("SELECT email FROM users WHERE email=?");
-        $checkForDuplicate->bind_params("s", $email);
+        $checkForDuplicate->bind_param("s", $email);
 
         if($checkForDuplicate->execute())
         {
+            $checkForDuplicate->store_result();
             if ($checkForDuplicate->num_rows === 0)
             {
                 $id = guidv4(random_bytes(16));
 
                 $createNewAccount = $mysql->prepare("INSERT INTO users (id, firstName, lastName, userName, password, email) VALUES (?,?,?,?,?,?)");
-                $createNewAccount->bind_params("ssssss", $id, $firstName, $lastName, $userName, $password, $email);
+                $createNewAccount->bind_param("ssssss", $id, $firstName, $lastName, $userName, $hashedPassword, $email);
 
                 if ($createNewAccount->execute()) {
                     header('Location: login.php');
@@ -42,6 +43,10 @@
             }
         }
     }
+
+    $createNewAccount->close();
+    $checkForDuplicate->close();
+    $mysql->close();
 
     function guidv4($data)
     {
