@@ -1,0 +1,58 @@
+#header
+{
+    font-family: "Source Sans Pro", sans-serif;
+    text-align: center;
+    line-height: 75px;
+    background-color: #A262FF;
+    width: 85%;
+    margin: auto;
+}
+
+#description
+{
+    font-size:20px;
+}
+
+body
+{
+  background-image: url("skyscraper.png");
+  background-repeat: repeat;
+}
+
+.myButton {
+	background-color:#2e466e;
+	border-radius:17px;
+	border:1px solid #1f2f47;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	padding:6px 13px;
+	text-decoration:none;
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 20%;
+}
+
+.myButton:hover {
+	background-color:#415989;
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+#middleSection 
+{
+    font-family: "Karla";
+    font-size: 20px;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #415989;
+}
+
