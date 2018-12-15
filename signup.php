@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -15,11 +18,25 @@
     // define variables and set to empty values
     $firstName = $lastName = $userName = $password = "";
 
+    $emailErr = "";
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = test_input($_POST["firstName"]);
-        $email = test_input($_POST["lastName"]);
-        $website = test_input($_POST["userName"]);
-        $comment = test_input($_POST["password"]);
+        $_SESSION["firstName"] = test_input($_POST["firstName"]);
+        $_SESSION["lastName"] = test_input($_POST["lastName"]);
+        $_SESSION["userName"] = test_input($_POST["userName"]);
+        $_SESSION["password"] = test_input($_POST["password"]);
+
+        $email = test_input($_POST["email"]);
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+          $emailErr = "Invalid email format";
+        }
+        else
+        {
+            $_SESSION["email"] = $email;
+            header('Location: newRegister.php');
+        }
     }
 
     function test_input($data) {
@@ -42,6 +59,10 @@
         <br>
         <input type="text" name="lastName"></input>
         <br>
+        Email: <?php echo $emailErr; ?>
+        <br>
+        <input type="text" name="email"></input>
+        <br>
         Username:
         <br>
         <input type="text" name="userName"></input>
@@ -49,6 +70,8 @@
         Password:
         <br>
         <input type="text" name="password"></input>
+        <br>
+        <input type="submit" value="submit"></input>
     </form>
 </body>
 
