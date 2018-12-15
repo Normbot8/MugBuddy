@@ -24,7 +24,7 @@
         $_SESSION["firstName"] = test_input($_POST["firstName"]);
         $_SESSION["lastName"] = test_input($_POST["lastName"]);
         $_SESSION["userName"] = test_input($_POST["userName"]);
-        $_SESSION["password"] = test_input($_POST["password"]);
+        $_SESSION["password"] = $_POST["password"];
 
         $email = test_input($_POST["email"]);
 
